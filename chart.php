@@ -1,3 +1,8 @@
+<?php
+  $data = array(12, 19, -3, 5, 2, 3, 10);
+  $labels = array('Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','Purple');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,14 +20,15 @@
       
       <script>
         const ctx = document.getElementById('myChart');
-      
+        var passedArray = <?php echo '["' . implode('", "', $labels) . '"]' ?>;
+        var passedArray2 = <?php echo '["' . implode('", "', $data) . '"]' ?>;
         new Chart(ctx, {
           type: 'line',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','Purple'],
+            labels: passedArray,
             datasets: [{
               label: '# of Votes',
-              data: [12, 19, -3, 5, 2, 3, 10],
+              data: passedArray2,
               borderWidth: 1
             }]
           },
