@@ -1,6 +1,22 @@
 <?php
-  $data = array(12, 19, -3, 5, 2, 3, 10);
-  $labels = array('Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','Purple');
+  include 'database/db_connect.php';
+  $query = "SELECT Value FROM data";
+  $result = mysqli_query($conn, $query);
+
+  $values = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+      $values[] = $row['Value'];
+  }
+  echo json_encode($values);
+
+  $query = "SELECT Name FROM data";
+  $result = mysqli_query($conn, $query);
+
+  $name = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+      $name[] = $row['Name'];
+  }
+  echo json_encode($name);
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +36,8 @@
       
       <script>
         const ctx = document.getElementById('myChart');
-        var passedArray = <?php echo '["' . implode('", "', $labels) . '"]' ?>;
-        var passedArray2 = <?php echo '["' . implode('", "', $data) . '"]' ?>;
+        var passedArray = <?php echo '["' . implode('", "', $name) . '"]' ?>;
+        var passedArray2 = <?php echo '["' . implode('", "', $values) . '"]' ?>;
         new Chart(ctx, {
           type: 'line',
           data: {
